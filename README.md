@@ -1,40 +1,44 @@
-# Backend Setup & Usage
+# Iron Lady - Internal Operations Automation System (ILOAS)
 
-## 1. Prerequisites
-- **Node.js** installed.
-- **MySQL** installed and running on your local machine.
+A premium internal tool for managing tasks and operations.
 
-## 2. Configuration
-The database connection settings are stored in the `.env` file. You **must** update this file to match your local MySQL setup.
+## Project Structure
+- `frontend/`: React + Vite application (UI).
+- `backend/`: Node.js + Express + MySQL application (API).
 
-1. Open `.env` in this directory.
-2. Update the `DB_PASSWORD` field with your MySQL root password.
-   ```env
-   DB_HOST=localhost
-   DB_USER=root
-   DB_PASSWORD=YOUR_ACTUAL_PASSWORD_HERE
-   DB_NAME=iloas_db
-   ```
-   *If your MySQL user is not 'root', change `DB_USER` as well.*
+## Setup Instructions
 
-## 3. Database Initialization
-Before running the server, you need to create the database schema and default users. We have a script for this.
+### 1. Database Configuration
+The system uses MySQL. You need to configure your database credentials.
+1. Open `backend/.env`.
+2. Update `DB_USER` and `DB_PASSWORD` to match your local MySQL installation.
+   - Default assumes `root` with no password.
+   - If you have a password, add it there.
 
-Run the following command in the terminal (inside the `backend` folder):
+### 2. Initialize Database
+Once credentials are set, run the seed script to create the database and default users:
 ```bash
+cd backend
 node seed.js
 ```
-*If this fails with "Access denied", check your password in `.env` again.*
 
-## 4. Running the Server
-To start the backend in development mode (auto-restarts on changes):
+### 3. Run the Application
+You can run the backend and frontend in separate terminals.
+
+**Backend:**
 ```bash
+cd backend
 npm run dev
 ```
-The server will start on port **5000** (http://localhost:5000).
+Server runs on: [http://localhost:5000](http://localhost:5000)
 
-## 5. API Endpoints
-- **POST /api/auth/login**: Login for Admin/Employee.
-- **GET /api/tasks**: Get tasks.
-- **POST /api/tasks**: Create task (Admin only).
-- **PUT /api/tasks/:id**: Update task status.
+**Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+App runs on: [http://localhost:5173](http://localhost:5173)
+
+## Default Credentials
+- **Admin**: `admin@ironlady.com` / `admin123`
+- **Employee**: `employee@ironlady.com` / `emp123`
