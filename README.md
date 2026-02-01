@@ -1,16 +1,40 @@
-# React + Vite
+# Backend Setup & Usage
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. Prerequisites
+- **Node.js** installed.
+- **MySQL** installed and running on your local machine.
 
-Currently, two official plugins are available:
+## 2. Configuration
+The database connection settings are stored in the `.env` file. You **must** update this file to match your local MySQL setup.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Open `.env` in this directory.
+2. Update the `DB_PASSWORD` field with your MySQL root password.
+   ```env
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASSWORD=YOUR_ACTUAL_PASSWORD_HERE
+   DB_NAME=iloas_db
+   ```
+   *If your MySQL user is not 'root', change `DB_USER` as well.*
 
-## React Compiler
+## 3. Database Initialization
+Before running the server, you need to create the database schema and default users. We have a script for this.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Run the following command in the terminal (inside the `backend` folder):
+```bash
+node seed.js
+```
+*If this fails with "Access denied", check your password in `.env` again.*
 
-## Expanding the ESLint configuration
+## 4. Running the Server
+To start the backend in development mode (auto-restarts on changes):
+```bash
+npm run dev
+```
+The server will start on port **5000** (http://localhost:5000).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 5. API Endpoints
+- **POST /api/auth/login**: Login for Admin/Employee.
+- **GET /api/tasks**: Get tasks.
+- **POST /api/tasks**: Create task (Admin only).
+- **PUT /api/tasks/:id**: Update task status.
